@@ -1,14 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Project do
-  it "considers a project with no tasks to be done" do
-    project = Project.new
-    expect(project.done?).to be_truthy
-  end
+  describe "#initialize" do
+    let(:project) { Project.new }
+    let(:task) { Task.new }
 
-  it "knows that a project with incomplete task is not done"
-    project = Project.new
-    task = Task.new
-    expect(project.done?).to be_falsy
+    context "considers a project with no tasks to be done" do
+      it { expect(project).to be_done }
+    end
+
+    it "knows that a project with incomplete task is not done" do
+      project.tasks << task
+      expect(project).not_to be_done
+    end
+
   end
 end
